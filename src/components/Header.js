@@ -1,7 +1,18 @@
 import styled from "styled-components";
+import { auth,provider,signInWithPopup} from "../firebase";
 
 const Header=(props)=>{
-   return <Nav>
+
+ const handleAuth=()=>{
+   signInWithPopup(auth,provider).then((result)=>{
+      console.log(result);
+   }).catch((error)=>{
+      alert(error.message);
+   })
+  
+ }
+
+return <Nav>
      <Logo>
         <img src="./images/logo.svg" alt="Disney"  />
      </Logo>
@@ -27,6 +38,7 @@ const Header=(props)=>{
             <span>Movies</span>
          </a>
      </NavMenu>
+     <Login onClick={handleAuth}>Login</Login>
    </Nav>
            
 }
@@ -123,5 +135,20 @@ ${'' /* @media(max-width:768px) {
 } */}
 
 `;
+
+const Login=styled.a`
+background-color: rgba(0,0,0,0.6);
+padding: 8px 16px;
+text-transform: uppercase;
+letter-spacing: 1.5px;
+border: 1px solid #f9f9f9; 
+border-radius: 4px;
+transition: all 0.2s;
+&:hover{
+  background-color:white;
+  color:black;
+  border-color:transparent;
+}
+`
 
 export default Header
